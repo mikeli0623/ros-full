@@ -1,0 +1,43 @@
+$space: 1rem;
+
+#staff-login-container {
+    display: flex;
+    flex-direction: column;
+    width: 60vw;
+    height: 30vh;
+    margin-top: 10vh;
+    color: white;
+    align-content: center;
+}
+
+.form {
+    margin-top: 5vh;
+    border: 1px solid white;
+    padding: 2vw
+}
+
+.form_field {
+    width: 20vw;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.form_label {
+    display: flex;
+    align-self: center;
+    margin-top: 0vh;
+    margin-bottom: 0.5vh;
+}
+
+.form_text_box {
+    text-align: left;
+    width: 20vw;
+    border: 1px solid gray;
+    margin-bottom: 0.5vh;
+    font-family: inherit;
+}
+
+.submit_button {
+    margin-top: 3vh;
+}
