@@ -56,7 +56,7 @@ export default function Staff({ data }) {
               order={order}
               refetchOrder={() =>
                 fetchData(
-                  `http://localhost:8080/api/orders?restId=${constants.restaurantId}&inProgress=${inProgress}`
+                  `/orders?restId=${constants.restaurantId}&inProgress=${inProgress}`
                 )
               }
             />

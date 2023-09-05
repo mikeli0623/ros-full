@@ -58,5 +58,5 @@
   "devDependencies": {
     "prettier": "^2.7.1"
   },
-  "proxy": "http://localhost:8080/api"
+  "proxy": "https://ros-api.onrender.com/api"
 }
