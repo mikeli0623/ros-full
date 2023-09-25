@@ -526,7 +526,7 @@ const OwnerPageContact = () => {
   const [isEditing, setIsEditing] = useState(false);
 
   const { data: restData, fetchData } = useFetch(
-    `/restaurants/${constants.restaurantId}`
+    `https://ros-api.onrender.com/api/restaurants/${constants.restaurantId}`
   );
 
   const [restInfo, setRestInfo] = useState({
@@ -693,7 +693,9 @@ const OwnerPageAccount = () => {
     data: accountData,
     isLoading,
     fetchData,
-  } = useFetch(`/users?restId=${constants.restaurantId}`);
+  } = useFetch(
+    `https://ros-api.onrender.com/api/users?restId=${constants.restaurantId}`
+  );
 
   const [adminAccount, setAdminAccount] = useState({
     username: "",

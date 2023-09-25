@@ -23,7 +23,7 @@ import * as constants from "utils/constants";
 
 export default function OrderItem({ order, refetchOrder }) {
   const { data: custData } = useFetch(
-    `/customers?restId=${constants.restaurantId}&_id=${order.customerId}`
+    `https://ros-api.onrender.com/api/customers?restId=${constants.restaurantId}&_id=${order.customerId}`
   );
 
   const createItemRows = function () {

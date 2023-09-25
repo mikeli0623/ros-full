@@ -138,7 +138,9 @@ export default function Cart({ data, setCurrentPageTab }) {
 
   const fetchItemInfo = async (name) => {
     try {
-      const res = await fetch(`/items/byName/${encodeURI(name)}`);
+      const res = await fetch(
+        `https://ros-api.onrender.com/api/items/byName/${encodeURI(name)}`
+      );
       const data = await res.json();
       return data;
     } catch (err) {

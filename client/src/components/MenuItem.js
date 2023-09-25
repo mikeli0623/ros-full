@@ -13,7 +13,7 @@ export default function MenuItem({
   setTotalItems,
   clear,
 }) {
-  const { data } = useFetch(`/items/${itemId}`);
+  const { data } = useFetch(`https://ros-api.onrender.com/api/items/${itemId}`);
 
   const [count, setCount] = useState(0);
 

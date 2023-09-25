@@ -6,11 +6,11 @@ import useFetch from "./hooks/useFetch";
 
 export default function ViewOrder() {
   const { data: inProgressOrders } = useFetch(
-    `/orders?restId=${constants.restaurantId}&customerId=${storage.custId}&inProgress=true`
+    `https://ros-api.onrender.com/api/orders?restId=${constants.restaurantId}&customerId=${storage.custId}&inProgress=true`
   );
 
   const { data: completedOrders } = useFetch(
-    `/orders?restId=${constants.restaurantId}&customerId=${storage.custId}&inProgress=false`
+    `https://ros-api.onrender.com/api/orders?restId=${constants.restaurantId}&customerId=${storage.custId}&inProgress=false`
   );
 
   return (

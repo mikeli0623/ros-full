@@ -3,7 +3,9 @@ import Button from "./Button";
 import edit_pencil from "images/image_edit_pencil.png";
 
 const Item = ({ itemId, setEditItem, setEditingItem }) => {
-  const { data: item, isLoading } = useFetch(`/items/${itemId}`);
+  const { data: item, isLoading } = useFetch(
+    `https://ros-api.onrender.com/api/items/${itemId}`
+  );
 
   return (
     <>

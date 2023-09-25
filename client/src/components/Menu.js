@@ -39,7 +39,7 @@ export default function Menu({ setCurrentPageTab }) {
   }, [totalItems]);
 
   const { data: categories } = useFetch(
-    `/category?restId=${constants.restaurantId}`
+    `https://ros-api.onrender.com/api/category?restId=${constants.restaurantId}`
   );
 
   useEffect(() => {

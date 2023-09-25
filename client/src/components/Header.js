@@ -87,7 +87,7 @@ const Header = (props) => {
   });
 
   const logout = () => {
-    fetch(`/auth/logout`);
+    fetch(`https://ros-api.onrender.com/api/auth/logout`);
   };
 
   return (

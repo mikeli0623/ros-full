@@ -11,7 +11,7 @@ export default function Staff({ data }) {
   const [inProgress, setInProgress] = useState(true);
 
   const { data: orders, fetchData } = useFetch(
-    `/orders?restId=${constants.restaurantId}&inProgress=${inProgress}`
+    `https://ros-api.onrender.com/api/orders?restId=${constants.restaurantId}&inProgress=${inProgress}`
   );
 
   const [activeCategory, setActiveCategory] = useState("In Progress");
