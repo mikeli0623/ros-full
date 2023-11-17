@@ -13,70 +13,80 @@ export default function CartItem({
   setTotalItems,
   removeItem,
 }) {
-  const [quantity, setQuantity] = useState(
-    parseFloat(sessionStorage.getItem(info.name))
-  );
+  const [data, setData] = useState(null);
+
+  const [quantity, setQuantity] = useState(null);
 
   useEffect(() => {
-    sessionStorage.setItem(info.name, quantity);
-  }, [quantity, info.name]);
+    if (data) sessionStorage.setItem(data.name, quantity);
+  }, [quantity, data]);
+
+  useEffect(() => {
+    const wait = async () => {
+      const res = await info;
+      setData(res);
+      setQuantity(parseFloat(sessionStorage.getItem(res.name)));
+    };
+    wait();
+  }, [info]);
 
   return (
     <LazyMotion features={domAnimation}>
-      <m.div
-        className="cartItem"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-      >
-        <div className="tw-self-center">
-          <Button
-            color="red"
-            content={
-              <img
-                className="tw-w-[14px] tw-h-[14px] tw-brightness-0 tw-invert"
-                src={delete_trash}
-                alt="delete item"
-              />
-            }
-            onClick={() => removeItem(info.name, quantity, info.cost)}
-            className="tw-mr-[30px]"
-          />
-        </div>
-        <LazyLoadImage
-          src={info.img}
-          width={125}
-          alt={info.name}
-          style={{ alignSelf: "center", marginRight: "30px" }}
-          placeholderSrc={info.low}
-          effect="opacity"
-        />
-        <div className="cartItemDesc" style={{ userSelect: "none" }}>
-          <div>
-            <span style={{ color: "#B5838D" }}>Name: </span>
-            {info.name}
+      {data && (
+        <m.div
+          className="cartItem"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          <div className="tw-self-center">
+            <Button
+              color="red"
+              content={
+                <img
+                  className="tw-w-[14px] tw-h-[14px] tw-brightness-0 tw-invert"
+                  src={delete_trash}
+                  alt="delete item"
+                />
+              }
+              onClick={() => removeItem(data.name, quantity, data.cost)}
+              className="tw-mr-[30px]"
+            />
           </div>
-          {info.size ? (
+          <LazyLoadImage
+            src={data.img}
+            width={125}
+            alt={data.name}
+            style={{ alignSelf: "center", marginRight: "30px" }}
+            placeholderSrc={data.low}
+            effect="opacity"
+          />
+          <div className="cartItemDesc" style={{ userSelect: "none" }}>
             <div>
-              <span style={{ color: "#B5838D" }}>Size: </span>
-              {info.size}
+              <span style={{ color: "#B5838D" }}>Name: </span>
+              {data.name}
             </div>
-          ) : null}
-        </div>
-
-        <CostCounter
-          name={info.name}
-          cost={info.cost}
-          setQuantity={setQuantity}
-          setTotalCost={setTotalCost}
-          setTotalItems={setTotalItems}
-          removeItem={removeItem}
-          clear={false}
-          showToast={true}
-        />
-        <div className="basketLeft tw-ml-auto tw-mr-[50px]">
-          <div>${(info.cost * quantity).toFixed(2)}</div>
-        </div>
-      </m.div>
+            {data.size ? (
+              <div>
+                <span style={{ color: "#B5838D" }}>Size: </span>
+                {data.size}
+              </div>
+            ) : null}
+          </div>
+          <CostCounter
+            name={data.name}
+            cost={data.cost}
+            setQuantity={setQuantity}
+            setTotalCost={setTotalCost}
+            setTotalItems={setTotalItems}
+            removeItem={removeItem}
+            clear={false}
+            showToast={true}
+          />
+          <div className="basketLeft tw-ml-auto tw-mr-[50px]">
+            <div>${(data.cost * quantity).toFixed(2)}</div>
+          </div>
+        </m.div>
+      )}
     </LazyMotion>
   );
 }

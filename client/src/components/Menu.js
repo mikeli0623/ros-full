@@ -39,7 +39,7 @@ export default function Menu({ setCurrentPageTab }) {
   }, [totalItems]);
 
   const { data: categories } = useFetch(
-    `https://ros-api.onrender.com/api/category?restId=${constants.restaurantId}`
+    constants.API_URL + `/category?restId=${constants.restaurantId}`
   );
 
   useEffect(() => {
@@ -177,10 +177,10 @@ export default function Menu({ setCurrentPageTab }) {
             <Button
               color="green"
               content={
-                <>
-                  <p>Go to Cart&nbsp;&nbsp;</p>
+                <div className="tw-flex tw-items-center">
+                  <p className="tw-m-0">Go to Cart&nbsp;&nbsp;</p>
                   <FontAwesomeIcon icon={faCartShopping} />
-                </>
+                </div>
               }
               onClick={() => setCurrentPageTab(constants.PAGE_TABS.CART)}
               disabled={totalItems === 0}

@@ -12,6 +12,7 @@ module.exports = {
     }
   },
   createCategory: async (req, res) => {
+    console.log("create category");
     const category = new Category({
       name: req.body.name,
       items: req.body.items,

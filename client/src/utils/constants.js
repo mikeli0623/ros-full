@@ -83,3 +83,5 @@ export const OWNER_PAGE_TABS_CONFIGS = (setCurrentPageTab) => {
     },
   ];
 };
+
+export const API_URL = "https://ros-api.onrender.com";

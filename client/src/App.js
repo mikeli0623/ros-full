@@ -6,7 +6,6 @@ import Menu from "./components/Menu";
 import Cart from "./components/Cart";
 import Staff from "./components/Staff";
 import MyOrders from "./components/MyOrders";
-import ParseJSON from "./utils/ParseJSON";
 import AboutUs from "./components/AboutUs";
 import StaffLogin from "./components/StaffLogin";
 import StartScreen from "./components/StartScreen";
@@ -18,8 +17,6 @@ const App = () => {
   const [currentPageTab, setCurrentPageTab] = useState(
     constants.PAGE_TABS.START_SCREEN
   );
-
-  const [data, setData] = useState(new ParseJSON());
 
   return (
     <ChakraProvider>
@@ -59,17 +56,11 @@ const App = () => {
           <Menu setCurrentPageTab={setCurrentPageTab} />
         )}
         {currentPageTab === constants.PAGE_TABS.CART && (
-          <Cart data={data} setCurrentPageTab={setCurrentPageTab} />
+          <Cart setCurrentPageTab={setCurrentPageTab} />
         )}
         {currentPageTab === constants.PAGE_TABS.MY_ORDERS && <MyOrders />}
         {currentPageTab === constants.PAGE_TABS.ABOUT_US && <AboutUs />}
-        {currentPageTab === constants.PAGE_TABS.EMPLOYEE_VIEW && (
-          <Staff
-            setCurrentPageTab={setCurrentPageTab}
-            data={data}
-            setData={setData}
-          />
-        )}
+        {currentPageTab === constants.PAGE_TABS.EMPLOYEE_VIEW && <Staff />}
         {currentPageTab === constants.PAGE_TABS.OWNER_VIEW && <OwnerPage />}
       </div>
     </ChakraProvider>

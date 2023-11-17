@@ -7,11 +7,12 @@ import emptyOrder from "images/emptyOrder.png";
 import useFetch from "./hooks/useFetch";
 import * as constants from "../utils/constants";
 
-export default function Staff({ data }) {
+export default function Staff() {
   const [inProgress, setInProgress] = useState(true);
 
   const { data: orders, fetchData } = useFetch(
-    `https://ros-api.onrender.com/api/orders?restId=${constants.restaurantId}&inProgress=${inProgress}`
+    constants.API_URL +
+      `/orders?restId=${constants.restaurantId}&inProgress=${inProgress}`
   );
 
   const [activeCategory, setActiveCategory] = useState("In Progress");

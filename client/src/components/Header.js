@@ -35,7 +35,7 @@ const Header = (props) => {
 
   const updateCustomer = async (e) => {
     try {
-      await axios.put(`/customers/${storage.custId}`, {
+      await axios.put(constants.API_URL + `/customers/${storage.custId}`, {
         name: name,
         table: tableNum,
       });
@@ -87,7 +87,14 @@ const Header = (props) => {
   });
 
   const logout = () => {
-    fetch(`https://ros-api.onrender.com/api/auth/logout`);
+    fetch(
+      constants.API_URL + `/auth/logout`,
+      {},
+      {
+        withCredentials: true,
+        credentials: "include",
+      }
+    );
   };
 
   return (

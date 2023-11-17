@@ -27,7 +27,7 @@ import axios from "axios";
 import CartItem from "./CartItem";
 import Button from "./Button";
 
-export default function Cart({ data, setCurrentPageTab }) {
+export default function Cart({ setCurrentPageTab }) {
   const toast = useToast();
   const [totalCost, setTotalCost] = useState(
     parseFloat(sessionStorage.getItem("totalCost")) || 0
@@ -139,7 +139,7 @@ export default function Cart({ data, setCurrentPageTab }) {
   const fetchItemInfo = async (name) => {
     try {
       const res = await fetch(
-        `https://ros-api.onrender.com/api/items/byName/${encodeURI(name)}`
+        constants.API_URL + `/items/byName/${encodeURI(name)}`
       );
       const data = await res.json();
       return data;
@@ -164,7 +164,7 @@ export default function Cart({ data, setCurrentPageTab }) {
         });
       });
       try {
-        await axios.post("/orders", {
+        await axios.post(constants.API_URL + "/orders", {
           restaurantId: constants.restaurantId,
           customerId: storage.custId,
           totalCost: sessionStorage.getItem("totalCost"),
@@ -262,7 +262,7 @@ export default function Cart({ data, setCurrentPageTab }) {
         {cartItems.map((item) => (
           <CartItem
             key={item}
-            info={data.getItemInfo(item)}
+            info={fetchItemInfo(item)}
             setTotalCost={setTotalCost}
             setTotalItems={setTotalItems}
             removeItem={removeItem}

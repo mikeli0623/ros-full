@@ -5,6 +5,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/opacity.css";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 import useFetch from "./hooks/useFetch";
+import * as constants from "../utils/constants";
 
 export default function MenuItem({
   itemId,
@@ -13,7 +14,7 @@ export default function MenuItem({
   setTotalItems,
   clear,
 }) {
-  const { data } = useFetch(`https://ros-api.onrender.com/api/items/${itemId}`);
+  const { data } = useFetch(constants.API_URL + `/items/${itemId}`);
 
   const [count, setCount] = useState(0);
 

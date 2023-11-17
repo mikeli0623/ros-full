@@ -43,6 +43,8 @@ module.exports = {
       res
         .cookie("access_token", token, {
           httpOnly: true,
+          domain: "localhost",
+          path: "/",
         })
         .status(200)
         .json({ details: { ...otherDetails }, isAdmin });
@@ -51,7 +53,11 @@ module.exports = {
     }
   },
   logout: async (req, res) => {
-    res.clearCookie("access_token");
+    res.clearCookie("access_token", {
+      httpOnly: true,
+      domain: "localhost",
+      path: "/",
+    });
     res.status(200).json("User has been logged out.");
   },
 };

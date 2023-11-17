@@ -23,7 +23,8 @@ import * as constants from "utils/constants";
 
 export default function OrderItem({ order, refetchOrder }) {
   const { data: custData } = useFetch(
-    `https://ros-api.onrender.com/api/customers?restId=${constants.restaurantId}&_id=${order.customerId}`
+    constants.API_URL +
+      `/customers?restId=${constants.restaurantId}&_id=${order.customerId}`
   );
 
   const createItemRows = function () {
@@ -48,7 +49,7 @@ export default function OrderItem({ order, refetchOrder }) {
   const viewItemsShow = () => setViewItems(true);
   const onChangeOrderStatus = async (inProgress) => {
     try {
-      await axios.patch(`/orders/${order._id}`, {
+      await axios.patch(constants.API_URL + `/orders/${order._id}`, {
         inProgress: inProgress,
       });
       refetchOrder();
@@ -63,7 +64,7 @@ export default function OrderItem({ order, refetchOrder }) {
   const cancelOrderShow = () => setCancelOrder(true);
   const onCancelOrder = async () => {
     try {
-      await axios.delete(`/orders/${order._id}`);
+      await axios.delete(constants.API_URL + `/orders/${order._id}`);
       cancelOrderClose();
       refetchOrder();
     } catch (err) {

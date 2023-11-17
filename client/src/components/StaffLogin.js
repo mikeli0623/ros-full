@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/StaffLogin.scss";
 import { Input } from "@chakra-ui/react";
 import * as constants from "../utils/constants";
@@ -13,25 +13,40 @@ export default function StaffLogin({ setCurrentPageTab }) {
   });
   const [error, setError] = useState("");
 
+  const [data, setData] = useState(null);
+
   const headers = {
-    "Access-Control-Allow-Origin": "*",
-    // "Content-Type": "application/json",
+    "Content-Type": "application/json",
+    Accept: "application/json",
   };
 
   const login = async () => {
     try {
-      const res = await axios.post("/auth/login", credentials, { headers });
-      flags.isAdmin = res.data.isAdmin;
-      setCurrentPageTab(
-        res.data.isAdmin
-          ? constants.PAGE_TABS.OWNER_VIEW
-          : constants.PAGE_TABS.EMPLOYEE_VIEW
+      const res = await axios.post(
+        "http://localhost:8080/api/auth/login",
+        credentials,
+        {
+          withCredentials: true, // Include credentials (like cookies) with the request
+          headers: headers,
+        }
       );
-      flags.isEmployeeSignedIn = true;
+      setData(res.data);
     } catch (err) {
       setError(err.response.data.message);
     }
   };
+
+  useEffect(() => {
+    if (data) {
+      flags.isAdmin = data.isAdmin;
+      setCurrentPageTab(
+        data.isAdmin
+          ? constants.PAGE_TABS.OWNER_VIEW
+          : constants.PAGE_TABS.EMPLOYEE_VIEW
+      );
+      flags.isEmployeeSignedIn = true;
+    }
+  }, [data, setCurrentPageTab]);
 
   const handleChange = (e) => {
     setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));

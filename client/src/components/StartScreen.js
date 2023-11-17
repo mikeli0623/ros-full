@@ -40,7 +40,7 @@ export default function StartScreen({ setCurrentPageTab }) {
 
   const createCustomer = async (e) => {
     try {
-      const res = await axios.post("/customers", {
+      const res = await axios.post(constants.API_URL + "/customers", {
         name: name,
         table: tableNum,
         restaurantId: constants.restaurantId,

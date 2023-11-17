@@ -1,10 +1,11 @@
 import useFetch from "./hooks/useFetch";
 import Button from "./Button";
 import edit_pencil from "images/image_edit_pencil.png";
+import * as constants from "../utils/constants";
 
 const Item = ({ itemId, setEditItem, setEditingItem }) => {
   const { data: item, isLoading } = useFetch(
-    `https://ros-api.onrender.com/api/items/${itemId}`
+    constants.API_URL + `/items/${itemId}`
   );
 
   return (

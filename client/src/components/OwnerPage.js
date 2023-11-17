@@ -50,11 +50,13 @@ const OwnerPageMenu = () => {
     data: categories,
     fetchData,
     isLoading,
-  } = useFetch(`/category?restId=${constants.restaurantId}`);
+  } = useFetch(
+    constants.API_URL + `/category?restId=${constants.restaurantId}`
+  );
 
   const addCategory = async () => {
     try {
-      await axios.post(`/category`, {
+      await axios.post(constants.API_URL + `/category`, {
         name: categoryName,
         restaurantId: constants.restaurantId,
       });
@@ -66,7 +68,7 @@ const OwnerPageMenu = () => {
 
   const deleteCategory = async () => {
     try {
-      await axios.delete(`/category/${categoryId}`);
+      await axios.delete(constants.API_URL + `/category/${categoryId}`);
       fetchData();
     } catch (err) {
       console.log(err);
@@ -269,7 +271,7 @@ const OwnerPageMenuModal = ({
 
   const updateCategory = async (catId, items) => {
     try {
-      const res = await axios.patch(`/category/${catId}`, {
+      const res = await axios.patch(constants.API_URL + `/category/${catId}`, {
         items: items,
       });
       return res.data;
@@ -280,7 +282,7 @@ const OwnerPageMenuModal = ({
 
   const deleteItem = async () => {
     try {
-      await axios.delete(`/items/${editItem._id}`);
+      await axios.delete(constants.API_URL + `/items/${editItem._id}`);
       Promise.all(
         categories
           .filter((category) => category.items.includes(editItem._id))
@@ -299,7 +301,7 @@ const OwnerPageMenuModal = ({
 
   const addItem = async () => {
     try {
-      const res = await axios.post("/items", {
+      const res = await axios.post(constants.API_URL + "/items", {
         name: itemInfo.name,
         cost: itemInfo.cost,
         ingredients:
@@ -329,18 +331,21 @@ const OwnerPageMenuModal = ({
 
   const updateItem = async () => {
     try {
-      const res = await axios.patch(`/items/${itemInfo._id}`, {
-        name: itemInfo.name,
-        cost: itemInfo.cost,
-        ingredients:
-          typeof itemInfo.ingredients === "object"
-            ? itemInfo.ingredients
-            : itemInfo.ingredients
-                .split(",")
-                .map((ingredient) => ingredient.trim()),
-        size: itemInfo.size,
-        img: itemInfo.img,
-      });
+      const res = await axios.patch(
+        constants.API_URL + `/items/${itemInfo._id}`,
+        {
+          name: itemInfo.name,
+          cost: itemInfo.cost,
+          ingredients:
+            typeof itemInfo.ingredients === "object"
+              ? itemInfo.ingredients
+              : itemInfo.ingredients
+                  .split(",")
+                  .map((ingredient) => ingredient.trim()),
+          size: itemInfo.size,
+          img: itemInfo.img,
+        }
+      );
       Promise.all(
         categories.map((category) => {
           let items = [...category.items];
@@ -526,7 +531,7 @@ const OwnerPageContact = () => {
   const [isEditing, setIsEditing] = useState(false);
 
   const { data: restData, fetchData } = useFetch(
-    `https://ros-api.onrender.com/api/restaurants/${constants.restaurantId}`
+    constants.API_URL + `/restaurants/${constants.restaurantId}`
   );
 
   const [restInfo, setRestInfo] = useState({
@@ -538,7 +543,10 @@ const OwnerPageContact = () => {
 
   const updateRestInfo = async () => {
     try {
-      await axios.patch(`/restaurants/${constants.restaurantId}`, restInfo);
+      await axios.patch(
+        constants.API_URL + `/restaurants/${constants.restaurantId}`,
+        restInfo
+      );
       fetchData();
     } catch (err) {
       console.log(err);
@@ -693,9 +701,7 @@ const OwnerPageAccount = () => {
     data: accountData,
     isLoading,
     fetchData,
-  } = useFetch(
-    `https://ros-api.onrender.com/api/users?restId=${constants.restaurantId}`
-  );
+  } = useFetch(constants.API_URL + `/users?restId=${constants.restaurantId}`);
 
   const [adminAccount, setAdminAccount] = useState({
     username: "",
@@ -734,7 +740,8 @@ const OwnerPageAccount = () => {
       });
       setEmployeeAccounts(empAccounts);
     };
-    if (accountData) setData();
+    // if (accountData) setData();
+    console.log(accountData);
   }, [accountData]);
 
   const [isEditingOwnerAccount, setIsEditingOwnerAccount] = useState(false);
@@ -742,7 +749,7 @@ const OwnerPageAccount = () => {
 
   const deleteEmployee = async (id) => {
     try {
-      await axios.delete(`/users/${id}`);
+      await axios.delete(constants.API_URL + `/users/${id}`);
       fetchData();
     } catch (err) {
       console.log(err);
@@ -751,7 +758,7 @@ const OwnerPageAccount = () => {
 
   const updateAdmin = async () => {
     try {
-      axios.put(`/users/${adminAccount.id}`, {
+      axios.put(constants.API_URL + `/users/${adminAccount.id}`, {
         username: newAdmin.username,
         password: newAdmin.password,
       });
@@ -924,7 +931,7 @@ const OwnerPageAccountModal = (props) => {
 
   const addEmployee = async () => {
     try {
-      await axios.post(`/auth/register`, {
+      await axios.post(constants.API_URL + `/auth/register`, {
         username: employeeUsername,
         password: employeePassword,
         restaurantId: constants.restaurantId,
