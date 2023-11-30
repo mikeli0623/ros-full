@@ -43,7 +43,7 @@ module.exports = {
       res
         .cookie("access_token", token, {
           httpOnly: true,
-          domain: "localhost",
+          domain: ".onrender.com",
           path: "/",
         })
         .status(200)
@@ -55,7 +55,7 @@ module.exports = {
   logout: async (req, res) => {
     res.clearCookie("access_token", {
       httpOnly: true,
-      domain: "localhost",
+      domain: ".onrender.com",
       path: "/",
     });
     res.status(200).json("User has been logged out.");

@@ -23,7 +23,7 @@ export default function StaffLogin({ setCurrentPageTab }) {
   const login = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/auth/login",
+        constants.API_URL + "/auth/login",
         credentials,
         {
           withCredentials: true, // Include credentials (like cookies) with the request
